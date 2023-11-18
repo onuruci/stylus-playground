@@ -10,8 +10,8 @@ import MonacoEditor from 'react-monaco-editor';
 import { ethers } from "ethers";
 import { wallet, getWallet, getBalance, contract, generateContract } from './components/connection';
 
-const URL = "http://localhost:5000"
-const socket = io('http://localhost:5000'); // Replace with your server URL
+const URL = "http://75.119.135.204:5000"
+const socket = io('http://75.119.135.204:5000'); // Replace with your server URL
 var files = [{name: "main.rs", content: ""},{name: "lib.rs", content: ""}];
 var fileName = "main";
 
@@ -58,14 +58,16 @@ function App() {
   }
 
   const newProject = async() => {
-    let res = await axios.post(URL + "/newproject", {
-      socketId: socket.id
-    });
-
     let resFund = await axios.post(URL + "/getfund", {
       address: wallet.address,
       socketId: socket.id
     });
+
+    let res = await axios.post(URL + "/newproject", {
+      socketId: socket.id
+    });
+
+    
 
     console.log(resFund);
   }
@@ -167,7 +169,7 @@ function App() {
           setDeploymentCount( deploymentCount + 1);
           setDeploymentAddress(address);
 
-          generateContract(address, abi, wallet);
+          generateContract(address, abi);
         });
 
         socket.on('newproject', (data) => {
@@ -199,6 +201,9 @@ function App() {
             </button>
             <button className='bg-indigo-700 w-56 mx-auto p-4 text-white rounded-md' onClick={() => handleGetABI()}>
               Deploy
+            </button>
+            <button className='bg-indigo-700 w-56 mx-auto p-4 text-white rounded-md' onClick={() => getBalance(wallet.address, setWalletBalance)}>
+              GetBalance
             </button>
           </div>
           <div>

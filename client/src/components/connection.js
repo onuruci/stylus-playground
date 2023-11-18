@@ -2,9 +2,9 @@ import axios from "axios";
 import { ethers } from "ethers";
 import { RELAYER_URL } from "./utils";
 
-const RPC_URL = "http://localhost:8547"
+// const RPC_URL = "http://localhost:8547"
  
-const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+// const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
 
 export let wallet;
 export let contract ;
@@ -22,10 +22,9 @@ export const getBalance = async (walletAddress, setBalance) => {
       address: walletAddress
     });
     setBalance(ethers.utils.formatUnits(res.data.balance.toString(), 18));
-  }, 1000);
+  }, 1700);
 }
 
 export const generateContract = (contractAddress, abi, w) => {
-  let signer = w.connect(provider);
-  contract = new ethers.Contract(contractAddress, abi, signer);
+  contract = new ethers.Contract(contractAddress, abi, w);
 }
