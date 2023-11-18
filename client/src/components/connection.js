@@ -1,6 +1,9 @@
+import axios from "axios";
 import { ethers } from "ethers";
-const RPC_URL = "http://localhost:8547"
+import { RELAYER_URL } from "./utils";
 
+const RPC_URL = "http://localhost:8547"
+ 
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
 
 export let wallet;
@@ -15,8 +18,10 @@ export const getWallet = () => {
 
 export const getBalance = async (walletAddress, setBalance) => {
   setTimeout(async () => {
-    let balance = await provider.send("eth_getBalance", [walletAddress, "latest"])
-    setBalance(ethers.utils.formatUnits(balance.toString(), 18));
+    let res = await axios.post(RELAYER_URL + "/balance", {
+      address: walletAddress
+    });
+    setBalance(ethers.utils.formatUnits(res.data.balance.toString(), 18));
   }, 1000);
 }
 

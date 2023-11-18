@@ -121,8 +121,6 @@ function App() {
     const intervalId = setInterval(async () => {
       if(operating) {
         getOutput("/outputres");
-      } else if(generating) {
-        getOutput("/newprojectres");
       }
     }, 1000);
 
@@ -173,8 +171,6 @@ function App() {
         });
 
         socket.on('newproject', (data) => {
-          setGenerating(false);
-          //setCode(data.data);
           files[0].content = data.mainData;
           files[1].content = data.libData; 
           setBashOutput(bashOutput + data.message)
@@ -233,6 +229,7 @@ function App() {
                     name={element.name}
                     inputs={element.inputs}
                     outputs={element.outputs}
+                    abi={abiElements}
                     stateMutability={element.stateMutability}
                     type={element.type}
                     bashOutput={bashOutput}

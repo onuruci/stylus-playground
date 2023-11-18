@@ -2,26 +2,27 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { wallet, contract, getBalance } from "../connection";
+import { RELAYER_URL } from "../utils";
+import axios from "axios";
 
 
-const ABIElement = ({name, inputs, outputs, stateMutability, type, bashOutput, setBash, setWalletBalance}) => {
+const ABIElement = ({name, inputs, outputs, abi, stateMutability, type, bashOutput, setBash, setWalletBalance}) => {
   const [value, setValue] = useState("");
   const handleClick = async() => {
-    if(contract) {
-      let res 
-      if(inputs.length > 0) {
-        let input = value.split(",");
-        res = await contract[name](...input);
-      } else {
-        res = await contract[name]();
-      }
-      setValue("");
-      
+    let res = await axios.post(RELAYER_URL + "/relay",{
+      address: contract.address,
+      abi: abi,
+      privKey: wallet.privateKey,
+      value: value,
+      inputs: inputs,
+      methodName: name
+    } )
 
-      setBash(bashOutput + JSON.stringify(res,  null, 2) + "\n");
-      getBalance(wallet.address, setWalletBalance);
-    }
-    
+    console.log(res.data.data);
+
+    setBash(bashOutput + res.data.data + "\n");
+    setValue("");
+    //getBalance(wallet.address, setWalletBalance);
   }
 
   return(
