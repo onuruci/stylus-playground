@@ -13,6 +13,8 @@ const socketIO = require('socket.io');
 const { ethers } = require("ethers");
 const RPC_URL = "http://localhost:8547"
 
+const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+
 const DEVNODE_URL = "http://localhost:8547";
 
 function logResult(output, socketId) {

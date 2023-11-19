@@ -1,1 +1,1 @@
-export const RELAYER_URL = "http://75.119.135.204:3000"
+export const RELAYER_URL = "http://75.119.135.204:5000"
