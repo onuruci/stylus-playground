@@ -10,6 +10,9 @@ var exec = require('child_process').exec;
 const http = require('http');
 const socketIO = require('socket.io');
 
+const { ethers } = require("ethers");
+const RPC_URL = "http://localhost:8547"
+
 const DEVNODE_URL = "http://localhost:8547";
 
 function logResult(output, socketId) {
@@ -222,6 +225,47 @@ app.post('/deploy', function(req, res, next) {
     msg: "Deploy request"
   })
 });
+
+app.post('/relay', async function(req, res, next) {
+  let address = req.body.address
+  let abi = req.body.abi
+  let privKey = req.body.privKey
+  let value = req.body.value
+  let inputs = req.body.inputs
+  let methodName = req.body.methodName
+
+  wallet = new ethers.Wallet(privKey);
+  let signer = wallet.connect(provider);
+  contract = new ethers.Contract(address, abi, signer);
+
+  let txres;
+
+  if(inputs.length > 0) {
+    let input = value.split(",");
+    txres = await contract[methodName](...input);
+  } else {
+    txres = await contract[methodName]();
+  }
+
+
+  res.json({
+    msg: "Send tx",
+    data: JSON.stringify(txres,  null, 2)
+  })
+});
+
+app.post('/balance', async function(req, res, next) {
+  let address = req.body.address
+
+  let balance = await provider.send("eth_getBalance", [address, "latest"])
+
+
+  res.json({
+    msg: "Get Balance",
+    balance: balance.toString()
+  })
+});
+
 
 
 
