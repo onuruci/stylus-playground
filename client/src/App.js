@@ -10,8 +10,8 @@ import MonacoEditor from 'react-monaco-editor';
 import { ethers } from "ethers";
 import { wallet, getWallet, getBalance, contract, generateContract } from './components/connection';
 
-const URL = "http://75.119.135.204:5000"
-const socket = io('http://75.119.135.204:5000'); // Replace with your server URL
+const URL = "https://stylus-playground-server.xyz"
+const socket = io('https://stylus-playground-server.xyz'); // Replace with your server URL
 var files = [{name: "main.rs", content: ""},{name: "lib.rs", content: ""}];
 var fileName = "main";
 
