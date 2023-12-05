@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cors = require('cors');
 var fs = require("fs")
 var exec = require('child_process').exec;
+require('dotenv').config();
 
 const http = require('http');
 const socketIO = require('socket.io');
@@ -206,7 +207,7 @@ app.post('/getfund', function(req, res, next) {
   let walletAddress = req.body.address;
   let socketId = req.body.socketId
 
-  execute(`../../nitro-testnode/test-node.bash script send-l2 --to address_${walletAddress} --ethamount 5`, (output) => logOutput(output));
+  execute(`${process.env.NODE_DIR}/test-node.bash script send-l2 --to address_${walletAddress} --ethamount 5`, (output) => logOutput(output));
 
 
   res.json({
