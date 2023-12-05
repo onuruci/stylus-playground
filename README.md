@@ -28,3 +28,39 @@ Client side development includes building required development environment and t
 
 - Supporting multiple programming languages such as C, C++
 - Running the VM on the browser so that users will not need to interact with the server while testing deployments.
+
+
+## Run Locally
+
+Follow instructions to run a local Stylus dev node at https://docs.arbitrum.io/stylus/how-tos/local-stylus-dev-node
+
+Clone the project
+
+Go to server directory
+
+Intall dependencies
+```
+npm install
+```
+
+Generate a .env file based on the template and add the running node directory
+```
+NODE_DIR=<path to running node directory>
+```
+
+Run the server
+```
+npm run server-start
+```
+
+Go to client directory
+
+Intall dependencies
+```
+npm install
+```
+
+Run the client 
+```
+npm start
+```
