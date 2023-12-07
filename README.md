@@ -22,7 +22,7 @@ Stylus Playground uses a server for compiling contracts, exporting the ABI and d
 
 #### Client
 
-Client side development includes building required development environment and testing functionalities. Serving for multiple files, sytax highlighting, providing multiple wallets for user to interact with the contract, deploying contracts to live testnet, more flexible UI components for interacting with deployments, saving former deployments and having a better design are to-dos for this stage.
+Client side development includes building required development environment and testing functionalities. Serving for multiple files, syntax highlighting, providing multiple wallets for user to interact with the contract, deploying contracts to live testnet, more flexible UI components for interacting with deployments, saving former deployments and having a better design are to-dos for this stage.
 
 ### Further Development
 
