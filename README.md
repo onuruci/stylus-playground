@@ -44,6 +44,7 @@ npm install
 ```
 
 Generate a .env file based on the template and add the running node directory
+add rpc url and dev node url to env file 
 ```
 NODE_DIR=<path to running node directory>
 ```
