@@ -12,11 +12,9 @@ const http = require('http');
 const socketIO = require('socket.io');
 
 const { ethers } = require("ethers");
-const RPC_URL = "http://localhost:8547"
 
-const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
 
-const DEVNODE_URL = "http://localhost:8547";
 
 function logResult(output, socketId) {
   console.log(output);
@@ -222,7 +220,7 @@ app.post('/deploy', function(req, res, next) {
   let socketId = req.body.socketId
   let privateKey = req.body.privateKey
 
-  execute(`cd projects && cd ${socketId} && rm -rf output.txt && cargo stylus deploy --endpoint ${DEVNODE_URL} --private-key ${privateKey}`, (output) => sendDirectOutput(output, socketId));
+  execute(`cd projects && cd ${socketId} && rm -rf output.txt && cargo stylus deploy --endpoint ${process.env.DEVNODE_URL} --private-key ${privateKey}`, (output) => sendDirectOutput(output, socketId));
 
   res.json({
     msg: "Deploy request"
